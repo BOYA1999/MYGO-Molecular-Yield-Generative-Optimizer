@@ -138,19 +138,9 @@ python 预测评估/evaluate_molecules.py -f path/to/generated.sdf -o ./admet_re
 
 ```bash
 python run_smoke_tests.py
-```
-
----
-
-## 缺失资产：checkpoint / 数据 / 完整配置
-
-本仓库当前未包含：
-
-- 训练数据（LMDB）
-- 预训练 checkpoint（`.ckpt/.pt`）
-- 完整可运行的 train/sample 配置（我提供的是“最小结构样例”）
-
-如果你希望我把“生成链路”也做成真正的一键可运行版本，需要你提供：
+通过网盘分享的文件：mygo.ckpt
+链接: https://pan.baidu.com/s/1Mc1wLwMtKCXkmubqsNQ1sA?pwd=eu5g 提取码: eu5g 
+--来自百度网盘超级会员v4的分享 this is checkpoint
 
 - 一份你现有的 train YAML（或训练输出目录中的 `train_config`）
 - 一个可用 checkpoint
