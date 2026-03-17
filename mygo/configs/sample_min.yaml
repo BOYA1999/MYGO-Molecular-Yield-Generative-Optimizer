@@ -1,0 +1,42 @@
+model:
+  # 必填：训练得到的 checkpoint 路径（.ckpt）
+  checkpoint: "PATH/TO/outputs_train/checkpoints/best.ckpt"
+
+sample:
+  seed: 2026
+  batch_size: 4
+  num_mols: 20
+  num_repeats: 1
+  save_traj_prob: 0.0
+
+data:
+  # 必填：蛋白结构 PDB
+  protein_path: "PATH/TO/protein.pdb"
+  # 二选一：
+  # 1) reference_ligand：参考配体（SDF/PDB），用于自动提取口袋
+  reference_ligand: "PATH/TO/reference_ligand.sdf"
+  # 2) pocket_args.pocket_coord：口袋中心坐标（x,y,z），会生成 dummy ligand
+  pocket_args:
+    radius: 10
+    criterion: "center_of_mass"
+    # pocket_coord: [0.0, 0.0, 0.0]
+  # 传给 get_input_from_file/get_pocmol_data 的参数（按需要扩展）
+  pocmol_args: {}
+
+task:
+  # 任务名会写入生成样本元数据；具体含义依赖训练配置/transform
+  name: "dock"
+  # 采样端需要的 task transform（尽量与训练端一致）
+  transform:
+    name: "task"
+
+noise:
+  # 该段用于 get_sample_noiser；真实可用字段取决于你的训练配置
+  num_steps: 100
+  beta_schedule: "cosine"
+  beta_start: 0.0001
+  beta_end: 0.02
+
+# 可选：覆盖训练配置中 transforms 的部分字段（scripts/sample.py 会做 merge）
+transforms: {}
+

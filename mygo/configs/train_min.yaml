@@ -1,0 +1,70 @@
+# 说明：
+# - 这是“字段结构最小样例”，用于让你知道 scripts/train.py 期望哪些顶层 key。
+# - 训练真正能跑通，需要你提供 dataset LMDB、task_db_weights、以及与数据一致的 transforms/noise/model 配置。
+
+train:
+  batch_size: 4
+  num_workers: 0
+  pin_memory: false
+  persistent_workers: false
+  max_epochs: 1
+  log_every_n_steps: 10
+  ckpt_every_n_steps: 200
+  # optimizer/scheduler 具体字段由 utils/train.py 决定
+  optimizer:
+    type: "adam"
+    params:
+      lr: 1.0e-4
+      weight_decay: 0.0
+  scheduler:
+    type: "none"
+    params: {}
+
+data:
+  # 需要 LMDB 数据集或你的数据配置（参考 utils/dataset.py -> ForeverTaskDataset）
+  dataset:
+    # 示例结构：不同 db 的 lmdb 路径/元信息
+    # 你需要替换为真实数据
+    example_db:
+      lmdb_path: "PATH/TO/data/example_db.lmdb"
+  # 不同 task/db 的采样权重（示例占位）
+  task_db_weights:
+    - task: "dock"
+      db: "example_db"
+      weight: 1.0
+
+transforms:
+  # 口袋特征（如果做 SBDD，一般需要）
+  featurizer_pocket:
+    # center 会在 sample.py 中可被自动覆盖（reference_ligand 推断 pocket center）
+    center: [0.0, 0.0, 0.0]
+  featurizer:
+    # 示例：节点/边类型字典需要和数据一致
+    node_type_dict: { "C": 0, "N": 1, "O": 2, "F": 3, "P": 4, "S": 5, "Cl": 6, "Br": 7, "I": 8 }
+    edge_type_dict: { "SINGLE": 1, "DOUBLE": 2, "TRIPLE": 3, "AROMATIC": 4 }
+  task:
+    name: "task"
+
+noise:
+  num_steps: 100
+  beta_schedule: "cosine"
+  beta_start: 0.0001
+  beta_end: 0.02
+
+model:
+  name: "pm_asym_denoiser"
+  # 下面是典型字段占位；请以你真实实验配置为准
+  pocket_dim: 64
+  node_dim: 128
+  edge_dim: 64
+  pocket:
+    name: "default"
+    num_layers: 3
+  denoiser:
+    name: "default"
+    num_layers: 6
+  add_output: ["confidence"]
+
+loss:
+  name: "default"
+
