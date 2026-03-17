@@ -142,7 +142,4 @@ python run_smoke_tests.py
 链接: https://pan.baidu.com/s/1Mc1wLwMtKCXkmubqsNQ1sA?pwd=eu5g 提取码: eu5g 
 --来自百度网盘超级会员v4的分享 this is checkpoint
 
-- 一份你现有的 train YAML（或训练输出目录中的 `train_config`）
-- 一个可用 checkpoint
-- 一份最小 demo 的 protein PDB + reference ligand SDF/PDB
 
