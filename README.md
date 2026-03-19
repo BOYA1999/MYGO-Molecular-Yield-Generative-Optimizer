@@ -1,4 +1,4 @@
-# Molecular Yield Generative Optimizer (MYGO)（SBDD 分子生成）+ ADMET 预测评估（本仓库整理版）
+# Molecular Yield Generative Optimizer (MYGO)（SBDD 分子生成）+ ADMET 预测评估
 
 本仓库包含两条相对独立的链路：
 
